@@ -16,23 +16,26 @@ sub description { "Scraping webcaster ntt-setup web page API to get ADSL IP addr
 
 sub execute {
 	my $tables = scraper {
-		process 'head meta', "metalist[]" => scraper {
-			process 'http-equiv', http => 'TEXT';
-			process 'content', content => '@content';
+		process 'tr td', "tdlist[]" => scraper {
+			process 'td', text => 'TEXT';
 		};
 	};
 
 	my $ua = LWP::UserAgent->new;
-	my $req = HTTP::Request->new(GET => 'http://ntt.setup/cgi-bin/main.cgi');
+	my $req = HTTP::Request->new(GET => 'http://ntt.setup/cgi-bin/main.cgi?mbg_webname=status');
 	$req->authorization_basic('user', '3dogs');
 
 	my $res = $tables->scrape( $ua->request( $req ) );
 
 $DB::single=1;
 
-	my $n=0;
-	for my $meta (@{$res->{metalist}}) {
-		print Encode::encode("utf8", $n++ . "\t$meta->{http}\t$meta->{content}\n");
+	my $tdlist = $res->{tdlist};
+	my $prompt = " ADSL\x{a0}IP";
+	for my $n ( 0 .. $#$tdlist) {
+		next unless $tdlist->[$n]->{text} eq $prompt;
+		my $ip = substr $tdlist->[++$n]->{text}, 2;
+		print Encode::encode("utf8", $ip);
+		last;
 	}
 }
 

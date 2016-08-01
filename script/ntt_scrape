@@ -1,3 +1,30 @@
+#!/usr/bin/perl 
+
+# Created: 08/01/2016 12:47:06 PM
+# Last Edit: 2016 Aug 01, 01:15:41 PM
+# $Id$
+
+=head1 NAME
+
+ntt_scrape.pl - "scrape webcaster for ADSL IP" 
+
+=head1 VERSION
+
+Version 0.01
+
+=cut
+
+our $VERSION = '0.01';
+
+use strict;
+use warnings;
+
+=head1 SYNOPSIS
+
+ntt_scrape -u router_user -p password -jjjjj 
+
+=cut
+
 #!/usr/bin/perl
 
 use FindBin qw/$Bin/;
@@ -6,4 +33,29 @@ use lib "$Bin/../lib";
 
 use NttScrape;
 
+=head1 DESCRIPTION
+
+Scraping webcaster ntt-setup web page API to get ADSL IP addrsss and uploading to mydns.org
+
+=cut
+
 NttScrape->run;
+
+=head1 AUTHOR
+
+Dr Bean C<< <drbean at cpan, then a dot, (.), and org> >>
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2016 Dr Bean, all rights reserved.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+=cut
+
+# End of ntt_scrape.pl
+
+# vim: set ts=8 sts=4 sw=4 noet:
+
+

@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 08/01/2016 12:47:06 PM
-# Last Edit: 2016 Aug 01, 01:15:41 PM
+# Last Edit: 2016 Aug 01, 06:14:58 PM
 # $Id$
 
 =head1 NAME
@@ -21,7 +21,7 @@ use warnings;
 
 =head1 SYNOPSIS
 
-ntt_scrape -u router_user -p password -jjjjj 
+ntt_scrape adsl -u router_user -p password -r 'http://ntt.setup/cgi-bin/main.cgi?mbg_webname=status' -d ADSL\\x{A0}IP -i http://ipv4.mydns.jp/directip.html -m mydns111111 -w password
 
 =cut
 
@@ -35,7 +35,13 @@ use NttScrape;
 
 =head1 DESCRIPTION
 
-Scraping webcaster ntt-setup web page API to get ADSL IP addrsss and uploading to mydns.org
+Scraping webcaster ntt-setup web page API to get ADSL IP addrsss and uploading to mydns.org.
+
+Takes router id, password, page with the ADSL IP on the router/access point/webcaster.
+
+In the Webcaster 3100SV web page, the ADSL IP address is in the table data element following  " ADSL\x{a0}IP". If in your case it's not, you're going to have to investigate the perl module L<Web::Scraper|http://search.cpan.org/dist/Web-Scraper/> to find out how to determine where it is.
+
+Also the web page at the dynamic DNS service, mydns.jp, and the user id, and password on the service.
 
 =cut
 

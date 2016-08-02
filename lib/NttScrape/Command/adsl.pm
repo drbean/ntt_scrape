@@ -45,7 +45,7 @@ sub execute {
 	my $ntt_response = $rows->scrape( $ua->request( $caster ) );
 
 	my $tdlist = $ntt_response->{tdlist};
-	my $prompt = " ADSL\x{a0}IP";
+	my $prompt = $opt->{d};
 	my $address;
 	for my $n ( 0 .. $#$tdlist) {
 		next unless $tdlist->[$n]->{text} eq $prompt;

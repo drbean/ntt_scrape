@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 08/01/2016 12:47:06 PM
-# Last Edit: 2016 Aug 01, 06:14:58 PM
+# Last Edit: 2016 Aug 02, 11:01:22 AM
 # $Id$
 
 =head1 NAME
@@ -21,7 +21,7 @@ use warnings;
 
 =head1 SYNOPSIS
 
-ntt_scrape adsl -u router_user -p password -r 'http://ntt.setup/cgi-bin/main.cgi?mbg_webname=status' -d ADSL\\x{A0}IP -i http://ipv4.mydns.jp/directip.html -m mydns111111 -w password
+ntt_scrape adsl -u router_user -p password -r 'http://ntt.setup/cgi-bin/main.cgi?mbg_webname=status' -d $' ADSL\xA0IP' -i http://ipv4.mydns.jp/directip.html -m mydns111111 -w password
 
 =cut
 

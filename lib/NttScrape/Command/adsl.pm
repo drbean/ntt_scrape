@@ -53,8 +53,21 @@ sub execute {
 		$address = Encode::encode("utf8", $ip);
 		last;
 	}
-	die "No address after '$prompt' prompt in $tdlist <TD> list"
+	warn "No address after '$prompt' prompt in $tdlist <TD> list"
 		unless defined $address;
+	unless ( $address =~ m/^\d+\.\d+\.\d+\.\d$/ ) {
+		warn
+"'$address' ADSL IP address malformed after '$prompt' prompt";
+		for my $n ( 0 .. $#$tdlist) {
+			next unless $tdlist->[$n]->{text} eq " ASDL\xA0IP";
+			my $ip = substr $tdlist->[++$n]->{text}, 1;
+			$address = Encode::encode("utf8", $ip);
+			last;
+		}
+	die
+"'$address' ADSL IP address also malformed after ' ASDL\xA0IP' prompt"
+		unless ( $address =~ m/^\d+\.\d+\.\d+\.\d$/ );
+	}
 
 	my $dns = HTTP::Request->new(POST =>
 "$opt->{i}?MID=$opt->{m}&PWD=$opt->{w}&IPV4ADDR=$address");

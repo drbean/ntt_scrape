@@ -59,14 +59,14 @@ sub execute {
 		warn
 "'$address' ADSL IP address malformed after '$prompt' prompt";
 		for my $n ( 0 .. $#$tdlist) {
-			next unless $tdlist->[$n]->{text} eq " ASDL\xA0IP";
+			next unless $tdlist->[$n]->{text} eq " ADSL\xA0IP";
 			my $ip = substr $tdlist->[++$n]->{text}, 1;
 			$address = Encode::encode("utf8", $ip);
 			last;
 		}
 	die
-"'$address' ADSL IP address also malformed after ' ASDL\xA0IP' prompt"
-		unless ( $address =~ m/^\d+\.\d+\.\d+\.\d$/ );
+"'$address' ADSL IP address also malformed after ' ADSL\xA0IP' prompt"
+		unless ( $address =~ m/^\d+\.\d+\.\d+\.\d+$/ );
 	}
 
 	my $dns = HTTP::Request->new(POST =>

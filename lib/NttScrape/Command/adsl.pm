@@ -53,6 +53,8 @@ sub execute {
 		$address = Encode::encode("utf8", $ip);
 		last;
 	}
+	die "No address after '$prompt' prompt in $tdlist <TD> list"
+		unless defined $address;
 
 	my $dns = HTTP::Request->new(POST =>
 "$opt->{i}?MID=$opt->{m}&PWD=$opt->{w}&IPV4ADDR=$address");

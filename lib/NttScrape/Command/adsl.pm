@@ -55,9 +55,9 @@ sub execute {
 	}
 	warn "No address after '$prompt' prompt in $tdlist <TD> list"
 		unless defined $address;
-	unless ( $address =~ m/^\d+\.\d+\.\d+\.\d$/ ) {
+	unless ( $address =~ m/^\d+\.\d+\.\d+\.\d+$/ ) {
 		warn
-"'$address' ADSL IP address malformed after '$prompt' prompt";
+"'$address' ADSL IP address malformed after bash '$prompt' prompt";
 		for my $n ( 0 .. $#$tdlist) {
 			next unless $tdlist->[$n]->{text} eq " ADSL\xA0IP";
 			my $ip = substr $tdlist->[++$n]->{text}, 1;
@@ -65,7 +65,7 @@ sub execute {
 			last;
 		}
 	die
-"'$address' ADSL IP address also malformed after ' ADSL\xA0IP' prompt"
+"'$address' ADSL IP address also malformed after perl ' ADSL\xA0IP' prompt"
 		unless ( $address =~ m/^\d+\.\d+\.\d+\.\d+$/ );
 	}
 
